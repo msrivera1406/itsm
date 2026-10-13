@@ -1,0 +1,62 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: it_asset_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password_123
+      MYSQL_DATABASE: it_asset_db
+      MYSQL_USER: asset_user
+      MYSQL_PASSWORD: asset_password_123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - asset_net
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: it_asset_phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: db
+      PMA_USER: asset_user
+      PMA_PASSWORD: asset_password_123
+      MYSQL_ROOT_PASSWORD: root_password_123
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    networks:
+      - asset_net
+
+  web:
+      build:
+        context: .
+        dockerfile: backend/Dockerfile
+        network: host
+      container_name: it_asset_web
+      restart: always
+      environment:
+        FLASK_ENV: development
+        FLASK_APP: backend/app.py
+        DB_HOST: db
+        DB_USER: asset_user
+        DB_PASSWORD: asset_password_123
+        DB_NAME: it_asset_db
+      ports:
+        - "5000:5000"
+      volumes:
+        - .:/app
+      depends_on:
+        - db
+      networks:
+        - asset_net
+volumes:
+  mysql_data:
+
+networks:
+  asset_net:
+    driver: bridge

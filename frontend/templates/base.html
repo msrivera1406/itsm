@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}ITSM &bull; Security & Asset Management{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+    <header class="navbar glass-panel">
+        <div style="display: flex; align-items: center; gap: 28px;">
+            <div class="brand">
+                <div class="brand-dot"></div>
+                <span>ITSM Asset Guard</span>
+                <span class="brand-badge">PRO</span>
+            </div>
+            <nav style="display: flex; gap: 12px;">
+                <a href="/devices" class="filter-btn" style="text-decoration: none;">💻 Inventario</a>
+                <a href="/assignments" class="filter-btn" style="text-decoration: none;">📋 Asignaciones</a>
+            </nav>
+        </div>
+        <div class="nav-tag">Wazuh &bull; Dell API &bull; AI Scoring</div>
+    </header>
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

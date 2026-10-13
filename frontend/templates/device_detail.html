@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Detalle de Seguridad de Activo{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <a href="/devices" style="font-size: 0.82rem; color: var(--text-muted); text-decoration: none; font-weight: 600;">&larr; Volver al inventario</a>
+    <h1 class="page-title" id="devHostname" style="margin-top: 6px;">Cargando activo...</h1>
+    <p class="page-subtitle" id="devSubinfo"></p>
+  </div>
+  <div id="assignGateBadge"></div>
+</div>
+
+<div class="spec-grid" id="specsContainer"></div>
+
+<div class="glass-panel" style="padding: 24px; margin-top: 24px;">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <div>
+      <h3 style="font-size: 1.1rem; font-weight: 700;">Auditoría de Vulnerabilidades (Wazuh & IA)</h3>
+      <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;">
+        Criterio de entrega: 0 vulnerabilidades activas permitidas.
+      </p>
+    </div>
+    <div id="cveCounters"></div>
+  </div>
+
+  <div class="table-wrapper">
+    <table class="clean-table">
+      <thead>
+        <tr>
+          <th class="col-center">CVE / Vulnerabilidad</th>
+          <th class="col-center">Componente Afectado</th>
+          <th class="col-center">Severidad Wazuh</th>
+          <th class="col-center">CVSS Base</th>
+          <th class="col-center">Prob. Explotación (IA)</th>
+          <th class="col-center">Estado</th>
+        </tr>
+      </thead>
+      <tbody id="vulnList">
+        <tr>
+          <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 24px;">
+            Consultando postura de seguridad...
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

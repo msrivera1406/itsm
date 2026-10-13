@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}ITSM &bull; Control de Asignaciones{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Historial de Asignaciones</h1>
+    <p class="page-subtitle">Seguimiento de computadoras entregadas a colaboradores y devoluciones</p>
+  </div>
+</div>
+
+<div class="controls-bar glass-panel">
+  <input type="text" id="searchAssignInput" class="search-input" placeholder="Buscar por empleado o equipo...">
+  <div class="filter-group">
+    <button class="filter-btn active" data-assign-filter="all">Todas</button>
+    <button class="filter-btn" data-assign-filter="active">Activas</button>
+    <button class="filter-btn" data-assign-filter="returned">Devueltas</button>
+  </div>
+</div>
+
+<div class="glass-panel table-wrapper">
+  <table class="clean-table">
+    <thead>
+      <tr>
+        <th class="col-center">Dispositivo</th>
+        <th class="col-center">Colaborador (LDAP)</th>
+        <th class="col-center">Fecha de Asignación</th>
+        <th class="col-center">Estado</th>
+        <th class="col-center">Fecha de Devolución</th>
+        <th class="col-center" style="text-align: right;">Acciones</th>
+      </tr>
+    </thead>
+    <tbody id="assignmentsList">
+      <tr>
+        <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 32px;">
+          Cargando asignaciones...
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+{% endblock %}

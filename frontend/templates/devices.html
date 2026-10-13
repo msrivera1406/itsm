@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Inventario de Activos y Seguridad{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Inventario de Equipos</h1>
+    <p class="page-subtitle">Monitoreo de postura de seguridad y control de entrega de activos</p>
+  </div>
+</div>
+
+<div class="controls-bar glass-panel">
+  <input type="text" id="searchInput" class="search-input" placeholder="Buscar por Hostname o Service Tag...">
+  <div class="filter-group">
+    <button class="filter-btn active" data-filter="all">Todos</button>
+    <button class="filter-btn" data-filter="assignable">Listos para Entrega</button>
+    <button class="filter-btn" data-filter="blocked">Bloqueados (CVEs)</button>
+    <button class="filter-btn" data-filter="assigned">Asignados</button>
+  </div>
+</div>
+
+<div class="glass-panel table-wrapper">
+  <table class="clean-table" id="devicesTable">
+    <thead>
+      <tr>
+        <th class="col-center">Dispositivo / Tag</th>
+        <th class="col-center">Hardware & SO</th>
+        <th class="col-center">Garantía Dell</th>
+        <th class="col-center">Postura de Seguridad</th>
+        <th class="col-center">Asignación</th>
+        <th class="col-center" style="text-align: right;">Acciones</th>
+      </tr>
+    </thead>
+    <tbody id="devicesList">
+      <tr>
+        <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 32px;">
+          Cargando inventario desde Wazuh y BD...
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="modal-overlay" id="assignmentModal">
+  <div class="modal-card glass-panel">
+    <div class="modal-header">
+      <h3 style="font-size: 1.15rem; font-weight: 700;">Asignar Dispositivo</h3>
+      <button class="modal-close" onclick="closeAssignModal()">&times;</button>
+    </div>
+    
+    <div style="margin-bottom: 18px;">
+      <p style="font-size: 0.85rem; color: var(--text-muted);">Equipo seleccionado:</p>
+      <p id="modalDeviceLabel" style="font-size: 0.95rem; font-weight: 600; margin-top: 2px;"></p>
+    </div>
+
+    <form id="assignForm">
+      <input type="hidden" id="assignDeviceId">
+      <div style="margin-bottom: 20px;">
+        <label style="display: block; font-size: 0.78rem; text-transform: uppercase; font-weight: 600; color: var(--text-muted); margin-bottom: 8px;">
+          Seleccionar Empleado (LDAP)
+        </label>
+        <select id="userSelect" class="search-input" style="width: 100%;" required>
+          <option value="">Cargando directorio de usuarios...</option>
+        </select>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 10px;">
+        <button type="button" class="filter-btn" onclick="closeAssignModal()">Cancelar</button>
+        <button type="submit" class="btn-primary" id="btnConfirmAssign">Confirmar Entrega</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
